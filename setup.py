@@ -17,7 +17,7 @@ setup(
     url='https://bitbucket.org/kmike/django-robokassa/',
     license = 'MIT license',
     description = u'Приложение для интеграции платежной системы ROBOKASSA в проекты на Django.'.encode('utf8'),
-    long_description = open('README.rst').read().decode('utf8') + u"\n\n" + open('CHANGES.rst').read().decode('utf8'),
+    long_description = open('README.rst').read() + u"\n\n" + open('CHANGES.rst').read(),
 
     requires=['django (>= 1.3)'],
 
