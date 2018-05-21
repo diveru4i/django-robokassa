@@ -4,7 +4,7 @@ from setuptools import setup
 from importlib import reload
 
 import sys
-reload(sys).setdefaultencoding("UTF-8")
+# reload(sys).setdefaultencoding("UTF-8")
 
 setup(
     name='django-robokassa',
