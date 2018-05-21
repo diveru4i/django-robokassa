@@ -4,12 +4,20 @@ from hashlib import md5
 try:
     from urllib import urlencode
 except ImportError:
-    from urllib.parse import urlencode    
+    from urllib.parse import urlencode
 from django import forms
 
 from robokassa.conf import LOGIN, PASSWORD1, PASSWORD2, TEST_MODE
 from robokassa.conf import STRICT_CHECK, FORM_TARGET, EXTRA_PARAMS
 from robokassa.models import SuccessNotification
+
+
+# python3
+try:
+    unicode
+except NameError:
+    unicode = str
+
 
 class BaseRobokassaForm(forms.Form):
 
@@ -35,7 +43,10 @@ class BaseRobokassaForm(forms.Form):
         return extra
 
     def _get_signature(self):
-        return md5(self._get_signature_string()).hexdigest().upper()
+        try:
+            return md5(self._get_signature_string()).hexdigest().upper()
+        except TypeError:
+            return md5(self._get_signature_string().encode('utf8')).hexdigest().upper()
 
     def _get_signature_string(self):
         raise NotImplementedError
@@ -165,5 +176,4 @@ class FailRedirectForm(BaseRobokassaForm):
     OutSum = forms.CharField(max_length=15)
     InvId = forms.IntegerField(min_value=0)
     Culture = forms.CharField(max_length=10)
-
     
